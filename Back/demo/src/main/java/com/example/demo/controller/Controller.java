@@ -49,16 +49,28 @@ import javax.xml.transform.dom.DOMSource; import javax.xml.transform.stream.Stre
 public class Controller {
     @GetMapping("/shape")
     @ResponseBody
-    public ArrayList getInstances(@RequestParam(name = "type") String type, @RequestParam(name = "length") int length,
-                                  @RequestParam(name = "width") int width, @RequestParam(name = "x") int posx,
-                                  @RequestParam(name = "y") int posy, @RequestParam(name = "c") String color,
-                                  @RequestParam(name = "id") int ID)
-    {
-        System.out.println(" Width is: "+ width +", Length is "+ length + ", Type is "+ type);
+    public ArrayList getInstances(@RequestParam(name = "parameters") String parameters)
+  {
+    String[] s = parameters.split(",");
+    String type = s[0];
+  
+  //  System.out.println(" Width is: "+ width +", Length is "+ length + ", Type is "+ type);
 
-        return ShapeFactory.createShape(type, length, width, posx, posy, ID, color);
+    return ShapeFactory.createShape(type, s);
 
-    }
+  }
+    
+    
+//     public ArrayList getInstances(@RequestParam(name = "type") String type, @RequestParam(name = "length") int length,
+//                                   @RequestParam(name = "width") int width, @RequestParam(name = "x") int posx,
+//                                   @RequestParam(name = "y") int posy, @RequestParam(name = "c") String color,
+//                                   @RequestParam(name = "id") int ID)
+//     {
+//         System.out.println(" Width is: "+ width +", Length is "+ length + ", Type is "+ type);
+
+//         return ShapeFactory.createShape(type, length, width, posx, posy, ID, color);
+
+//     }
     @GetMapping("/color")
     @ResponseBody
     public ArrayList<IShape> changeColor(@RequestParam(name = "id") int ID, @RequestParam(name = "color") String color) {
